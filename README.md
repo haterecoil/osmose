@@ -2,17 +2,18 @@
 17
 
 # Nom du projet
-Starter H3
+BIG FIVE
 
 # Equipe
-- xxxx
-- xxxx
-- xxxx
-- xxxx
-- xxxx
+- Nawelle Alouani
+- Eden Bitton
+- Ronan Polin
+- Miléna Tarrière
+- Benjamin Warrin
+- Morgan Caron
 
 # Description
-xxxx
+Les animaux du Big Five sont les 5 animaux les plus réputés d'Afrique. Par extension, ce sont ceux qui souffrent le plus du braconnage.
 
 # Instructions
 (sudo) npm install
