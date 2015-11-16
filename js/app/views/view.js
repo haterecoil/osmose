@@ -8,11 +8,14 @@ var View = function(){
 
 	this.domId = this.id;
 
-	if ( typeof this.templateId == 'undefined' ){
+	//suffix for events
+	this.eventSuffix = this.id;
 
+	if ( typeof this.templateId == 'undefined' ){
 
 		this.templateId = this.id;
 	}
+
 
 	if ( typeof this.datas == 'undefined' ){
 		this.datas = app.datas;
@@ -150,8 +153,6 @@ View.prototype.bind = function() {
 	// Bind resize event
 	app._onResize.add(this.resize, this);
 
-	$('body').bind('click.'+this.templateId, sayHello.bind(this));
-
 };
 
 // Once view is animated in
@@ -197,3 +198,23 @@ View.prototype.onAnimateOut = function() {
 function sayHello(){
 	console.log( "hello " + this.templateId );
 }
+
+
+/*
+ How to customize parent's prototype ?
+
+ CurrentClass.prototype.methodToCustomize = function() {
+ // 1.
+ // first, call the parent's function so it is executed
+ //  "call(this)" is necessary so the function is executed
+ //  with the current object properties
+ ParentClass.prototype.methodToCustomize.call(this);
+
+ //every other actions below are custom :-)
+ doThis();
+ doSomething();
+ this.yolo = true;
+
+ }
+
+ */
