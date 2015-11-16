@@ -33,6 +33,9 @@ App.prototype.init = function() {
 	// Load datas
 	this.loadDatas();
 
+	//Set up a player
+	this.player = new Player();
+
 };
 
 // Load datas
@@ -123,9 +126,6 @@ App.prototype.onMainLoaderAnimateIn = function() {
 
 	// Init router
 	this.router.init();
-
-	//go to home :-)
-	//this.viewController.goTo( this.viewController.views('home') );
 
 };
 

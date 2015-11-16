@@ -1,6 +1,6 @@
-var Experience = function(){
+var Game = function(){
 
-	this.id = 'experience';
+	this.id = 'game';
 
 	View.apply(this, arguments);
 
@@ -10,9 +10,9 @@ var Experience = function(){
 
 };
 
-Experience.prototype = Object.create(View.prototype);
+Game.prototype = Object.create(View.prototype);
 
-Experience.prototype.animateIn = function() {
+Game.prototype.animateIn = function() {
 	
 	View.prototype.animateIn.call(this);
 
@@ -23,10 +23,10 @@ Experience.prototype.animateIn = function() {
 	this.domElem.fadeIn(function(){
 		self.onAnimateIn();
 	});
-	console.log("--View: Hello Experience :-)");
+	console.log("--View: Hello Game :-)");
 };
 
-Experience.prototype.animateOut = function() {
+Game.prototype.animateOut = function() {
 	
 	View.prototype.animateOut.call(this);
 
@@ -35,24 +35,5 @@ Experience.prototype.animateOut = function() {
 	this.domElem.fadeOut(function(){
 		self.onAnimateOut();
 	});
-	console.log("--View: Goodbye Experience :-)");
+	console.log("--View: Goodbye Game :-)");
 };
-
-/*
-	How to customize parent's prototype ?
-
-	CurrentClass.prototype.methodToCustomize = function() {
-	  // 1.
-	  // first, call the parent's function so it is executed
-	  //  "call(this)" is necessary so the function is executed
-	  //  with the current object properties
-	  ParentClass.prototype.methodToCustomize.call(this);
-
-	  //every other actions below are custom :-)
-	  doThis();
-	  doSomething();
-	  this.yolo = true;
-
-	}
-
- */

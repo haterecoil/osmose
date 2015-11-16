@@ -53,14 +53,25 @@ Router.prototype.createRoutes = function() {
 
 	});
 
-	// Experience
-	crossroads.addRoute( '/experience' , function(){
+	// Game
+	crossroads.addRoute( '/game' , function(){
 
 		self._onNavigate.dispatch({
-			view: 'experience'
+			view: 'game'
 		});
 
-		console.log( '## Navigate view experience' );
+		console.log( '## Navigate view game' );
+
+	});
+
+	// Trophy
+	crossroads.addRoute( '/trophy' , function(){
+
+		self._onNavigate.dispatch({
+			view: 'trophy'
+		});
+
+		console.log( '## Navigate view trophy' );
 
 	});
 

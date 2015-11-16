@@ -12,8 +12,15 @@ var Home = function(){
 
 Home.prototype = Object.create(View.prototype);
 
+Home.prototype.bind = function(){
+	View.prototype.bind.call(this);
+
+	//nxt level btn
+	$('.next_view').bind('click.'+this.eventSuffix, this.gotoNextView);
+
+}
+
 Home.prototype.animateIn = function() {
-	
 	View.prototype.animateIn.call(this);
 
 	var self = this;
@@ -28,8 +35,8 @@ Home.prototype.animateIn = function() {
 };
 
 Home.prototype.animateOut = function() {
-	
 	View.prototype.animateOut.call(this);
+
 
 	var self = this;
 
@@ -40,3 +47,14 @@ Home.prototype.animateOut = function() {
 	console.log("--View: Goodbye Home :-)");
 
 };
+
+Home.prototype.gotoNextView= function(){
+	if ( ! nameProvided() ) return;
+
+	app.router.navigate( '/game' );
+
+}
+
+function nameProvided(){
+	return ( $('#home #player-name').val().length > 0 ) ? true : false;
+}
