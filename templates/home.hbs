@@ -9,8 +9,11 @@
   <h1>Mon projet h3</h1>
   <p>{{ home.content }}</p>
 
-    <label for="player-name"> {{ home.playername_label }} :
-    <input type="text" name="player-name" id="player-name"></label>
+    <form action="/game" id="begin-game" method="post">
+        <label for="player-name"> {{ home.playername_label }} :
+            <input type="text" name="player-name" id="player-name"></label>
+    </form>
+
     <button class="next_view" >Jouer !</button>
 </section>
 

@@ -1,3 +1,4 @@
+// you lost ^___^
 var Game = function(){
 
 	this.id = 'game';
@@ -23,6 +24,9 @@ Game.prototype.animateIn = function() {
 	this.domElem.fadeIn(function(){
 		self.onAnimateIn();
 	});
+
+	this.startGame();
+
 	console.log("--View: Hello Game :-)");
 };
 
@@ -37,3 +41,11 @@ Game.prototype.animateOut = function() {
 	});
 	console.log("--View: Goodbye Game :-)");
 };
+
+Game.prototype.startGame = function() {
+	/*var animalCollection = new AnimalCollection(),
+			shootThemAll = new AnimalView(animalCollection);
+
+	shootThemAll.init();*/
+
+}

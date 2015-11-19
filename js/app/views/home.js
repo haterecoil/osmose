@@ -18,6 +18,8 @@ Home.prototype.bind = function(){
 	//nxt level btn
 	$('.next_view').bind('click.'+this.eventSuffix, this.gotoNextView);
 
+	$('#begin-game').bind('submit.'+this.eventSuffix, this.gotoNextView);
+
 }
 
 Home.prototype.animateIn = function() {
@@ -49,12 +51,21 @@ Home.prototype.animateOut = function() {
 };
 
 Home.prototype.gotoNextView= function(){
-	if ( ! nameProvided() ) return;
+	if ( ! nameProvided() ) return false;
 
+	//@todo app._onNameProvided.dispatch();
+	app.player.setName($('#home #player-name').val());
 	app.router.navigate( '/game' );
+
+	//prevent form submission
+	return false;
 
 }
 
 function nameProvided(){
 	return ( $('#home #player-name').val().length > 0 ) ? true : false;
 }
+
+
+
+

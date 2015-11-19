@@ -9,6 +9,7 @@ function App(){
 	// Signals
 	this._onResize = new signals.Signal();
 	this._onUpdate = new signals.Signal();
+	this._onNameProvided = new signals.Signal();
 
 	// Datas
 	this.datas = null;
@@ -29,7 +30,7 @@ function App(){
 
 // Init app
 App.prototype.init = function() {
-	
+
 	// Load datas
 	this.loadDatas();
 
@@ -53,12 +54,16 @@ App.prototype.loadDatas = function() {
 		// Once datas are loaded
 		self.onDatasLoaded();
 
+	}).fail(function(){
+		console.error( "data error :-( " );
 	});
 
 };
 
 // Once datas are loaded
 App.prototype.onDatasLoaded = function() {
+
+	console.log( "loaded" );
 
 	// Bind common events
 	this.bind();
