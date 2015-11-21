@@ -9,7 +9,7 @@
 
 //@todo : go abstract or go concrete !!!!
     //but first mvp
-var AnimalCollection = function(options) {
+/*var AnimalCollection = function(options) {
     //@todo: set in an option ?
     this.animals = [
         {
@@ -76,7 +76,7 @@ AnimalCollection.prototype.createMany = function() {
             this.create(current.specy);
         }
     }, this)
-}
+}*/
 
 
 

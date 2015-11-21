@@ -1,15 +1,64 @@
 
-//abstract model
-var Animal = function() {
-    this.health = 1;
-    this.name = "animal";
-    this.color = "";
+/*
+    Animal
+        healt
+        name
+        color
+        uid
+        posX
+        posY
+        maxQ
+        lane
+        instances -> gotoCollection
+        ._onDeath
+        ._onBirth
 
+    .init
+    .getInstance -> ?
+    .create
+    .createAll
+    .getDomElement
+    .getHit
+    .decrementHealth
+    .die
+    .getHtmlElement
+    .bindElementEvents
+    .draw -> goto Collection
+
+
+
+
+ */
+
+//abstract model
+var Animal = function(options) {
+    var defaultOptions = {
+        health : 1,
+        name: "default",
+        color : "grey"
+    }
+    options = ( void 0 === options ? options : defaultOptions );
+
+    //counter
     Animal.numInstance = ( Animal.numInstance || 0 ) + 1;
     this.uid = Animal.numInstance;
 
+    // global species options
+    this.health = options.health;
+    this.name = options.name;
+    this.color = options.color;
+    this.maxQuantity = 1; //@todo: in collection ? in options ?
+
+    this.posX = -1;
+    this.posY = -1;
+
+    this.lane = -1;
+
+    this.instances = [];
+
+    //create signals
     this._onDeath = new signals.Signal();
-    //this._onBirth = new signals.Signal();
+    this._onBirth = new signals.Signal();
 }
 
 Animal.prototype.init = function() {
@@ -23,6 +72,35 @@ Animal.prototype.getInstance = function() {
     return instance;
 }
 
+Animal.prototype.create = function() {
+    console.log( "new animal" );
+    var instance = {};
+    instance.health = this.health;
+    instance.name = this.name;
+    instance.color = this.color;
+    instance.posX = this.posX;
+    instance.posY = this.posY;
+    instance.lane = this.lane;
+    instance.domElem = this.getDomElement();
+
+    //save instance reference
+    this.instances.push( instance );
+
+    //notify the birth of an animal (for the view)
+    this._onBirth.dispatch(instance);
+}
+
+//iterate through conf file to spawn all units necessary
+Animal.prototype.createAll = function() {
+    for ( var i = 0; i < this.maxQuantity; i++ ) {
+        this.create();
+    }
+}
+
+Animal.prototype.getDomElement = function() {
+    return this.getHtmlElement();
+}
+
 Animal.prototype.getHit = function() {
     this.decrementHealth();
     console.log( "got hit" );
@@ -30,9 +108,7 @@ Animal.prototype.getHit = function() {
 
 Animal.prototype.decrementHealth = function(hit) {
     if ( typeof hit !== "number" ) hit = 1;
-
     this.health = this.health - hit;
-
     //if 0 health, then DIE
     if ( this.health < 1 ) this.die();
 }
@@ -42,23 +118,50 @@ Animal.prototype.die = function() {
     this._onDeath.dispatch(this);
 }
 
-
-//species classes
-var Zebra = function() {
-    Animal.apply(this, arguments);
-    this.name = "zebra";
-    this.health = 2;
-    this.color = color();
+//returns an html element representing an animal;
+//@todo: use real template
+Animal.prototype.getHtmlElement = function() {
+    var domElem = document.createElement('div');
+    domElem.setAttribute('class', 'animal');
+    domElem.style.backgroundColor = color();
+    return domElem;
 }
-Zebra.prototype = Object.create(Animal.prototype);
 
-var Rhino = function() {
-    Animal.apply(this, arguments);
-    this.name = "rhino";
-    this.health = 5;
-    this.color = color();
+Animal.prototype.bindElementEvents = function() {
+    $(this.domElement).bind('click', this.getHit.bind(this));
 }
-Rhino.prototype = Object.create(Animal.prototype);
+
+//spawn the animal
+//@todo: real draw ?
+Animal.prototype.draw = function(animal) {
+    var domElem = this.domElem();
+    domElem.setAttribute("data-animal_uid", animal.uid);
+    //bind events
+    this.bindDomElemEvents(domElem, animal);
+
+    //append elem to the game
+    $(this.gameContainer).append(domElem);
+
+    console.log( "draw !" );
+}
+
+
+
+var animalsConfig = [
+    {
+        name: "rhinoceros",
+        health: 3,
+        speed: 1,
+        color: "yellow",
+        assets: {
+            moving: [],
+            dying: [],
+            sounds: []
+        }
+    }
+];
+
+
 
 //lol
 function color(){
