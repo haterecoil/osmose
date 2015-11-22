@@ -9,7 +9,7 @@
 
 //@todo : go abstract or go concrete !!!!
     //but first mvp
-/*var AnimalCollection = function(options) {
+/*var AnimalController = function(options) {
     //@todo: set in an option ?
     this.animals = [
         {
@@ -29,29 +29,29 @@
     this._onSpeciesDeath = new signals.Signal();
 }
 
-AnimalCollection.prototype.init = function() {
+AnimalController.prototype.init = function() {
     this.createMany();
 }
 
-AnimalCollection.prototype.bindCollectionEvents = function() {
+AnimalController.prototype.bindCollectionEvents = function() {
 }
 
-AnimalCollection.prototype.onAnimalDeath = function(animal) {
+AnimalController.prototype.onAnimalDeath = function(animal) {
     //notify death of na animal (for the view)
     this._onAnimalDeath.dispatch();
 }
 
-AnimalCollection.prototype.animalHit = function(event) {
+AnimalController.prototype.animalHit = function(event) {
     var uid = event.target.getAttribute("data-animal_uid");
     var animal = this.getAnimalById(id);
 debugger;
 }
 
-AnimalCollection.prototype.getAnimalById = function(id) {
+AnimalController.prototype.getAnimalById = function(id) {
 
 }
 
-AnimalCollection.prototype.create = function(type) {
+AnimalController.prototype.create = function(type) {
     console.log( "new animal" );
     var instance = new type();
 
@@ -70,7 +70,7 @@ AnimalCollection.prototype.create = function(type) {
 }
 
 //iterate through conf file to spawn all units necessary
-AnimalCollection.prototype.createMany = function() {
+AnimalController.prototype.createMany = function() {
     this.animals.forEach(function(current, index, array){
         for (var qty = 0; qty < current.quantity; qty++ ) {
             this.create(current.specy);

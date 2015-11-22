@@ -1,107 +1,80 @@
 
 /*
     Animal
-        healt
+        health
         name
-        color
+        color/assets
         uid
         posX
         posY
-        maxQ
-        lane
-        instances -> gotoCollection
-        ._onDeath
-        ._onBirth
+        template
+        _onDeath
+        _onBirth
 
-    .init
-    .getInstance -> ?
-    .create
-    .createAll
-    .getDomElement
+    .configure(conf) // sets fro mconf
+    .setPosition
+    .move(side)
     .getHit
-    .decrementHealth
     .die
-    .getHtmlElement
     .bindElementEvents
-    .draw -> goto Collection
+    .setDomElement
+    .getDomElement
 
-
-
+    @todo:
+    .nextFrame
+    .deathAnimation
 
  */
 
-//abstract model
-var Animal = function(options) {
-    var defaultOptions = {
-        health : 1,
-        name: "default",
-        color : "grey"
-    }
-    options = ( void 0 === options ? options : defaultOptions );
 
+var Animal = function() {
     //counter
     Animal.numInstance = ( Animal.numInstance || 0 ) + 1;
     this.uid = Animal.numInstance;
 
-    // global species options
-    this.health = options.health;
-    this.name = options.name;
-    this.color = options.color;
-    this.maxQuantity = 1; //@todo: in collection ? in options ?
+    //default conf
+    this.health = 1;
+    this.name = "default";
+    this.color = " grey";
 
     this.posX = -1;
     this.posY = -1;
 
-    this.lane = -1;
+    this.template = "<div></div>";
+    this.domElement = null;
 
-    this.instances = [];
-
-    //create signals
     this._onDeath = new signals.Signal();
-    this._onBirth = new signals.Signal();
 }
 
-Animal.prototype.init = function() {
-
+Animal.prototype.configure = function(conf) {
+    //set all but position
+    if ( void 0 === conf ) return;
+    this.health = conf.health;
+    this.name = conf.name;
+    this.color = conf.color;
 }
 
-Animal.prototype.getInstance = function() {
-    var instance = Object.create(this);
-    instance.prototype = Object.create(this.prototype);
-
-    return instance;
+Animal.prototype.initView = function() {
+    this.setPosition(0,0);
+    this.setDomElement();
 }
 
-Animal.prototype.create = function() {
-    console.log( "new animal" );
-    var instance = {};
-    instance.health = this.health;
-    instance.name = this.name;
-    instance.color = this.color;
-    instance.posX = this.posX;
-    instance.posY = this.posY;
-    instance.lane = this.lane;
-    instance.domElem = this.getDomElement();
-
-    //save instance reference
-    this.instances.push( instance );
-
-    //notify the birth of an animal (for the view)
-    this._onBirth.dispatch(instance);
+Animal.prototype.setPosition = function(posX, posY) {
+    //set spawn position
+    this.posX = posX;
+    this.posY = posY; //maybe Y is defined by css ?
 }
 
-//iterate through conf file to spawn all units necessary
-Animal.prototype.createAll = function() {
-    for ( var i = 0; i < this.maxQuantity; i++ ) {
-        this.create();
-    }
-}
-
-Animal.prototype.getDomElement = function() {
-    return this.getHtmlElement();
+Animal.prototype.move = function(plusOrMinus) {
+    //move to the left or to the right
+    if (plusOrMinus > 0 )
+        this.posX = this.posX + speed;
+    else
+        this.posX = this.posX - speed;
 }
 
 Animal.prototype.getHit = function() {
+    //what happens when animal gets hit ?
     this.decrementHealth();
     console.log( "got hit" );
 }
@@ -114,52 +87,30 @@ Animal.prototype.decrementHealth = function(hit) {
 }
 
 Animal.prototype.die = function() {
+    //when health is 0
     console.log( "oups a "+ this.name +" is dead !" );
     this._onDeath.dispatch(this);
 }
 
-//returns an html element representing an animal;
-//@todo: use real template
-Animal.prototype.getHtmlElement = function() {
-    var domElem = document.createElement('div');
-    domElem.setAttribute('class', 'animal');
-    domElem.style.backgroundColor = color();
-    return domElem;
-}
-
 Animal.prototype.bindElementEvents = function() {
+    //binds click events
     $(this.domElement).bind('click', this.getHit.bind(this));
 }
 
-//spawn the animal
-//@todo: real draw ?
-Animal.prototype.draw = function(animal) {
-    var domElem = this.domElem();
-    domElem.setAttribute("data-animal_uid", animal.uid);
-    //bind events
-    this.bindDomElemEvents(domElem, animal);
-
-    //append elem to the game
-    $(this.gameContainer).append(domElem);
-
-    console.log( "draw !" );
+Animal.prototype.setDomElement = function() {
+    //create dom element from template
+    this.domElement = $(this.template);
+    this.domElement.addClass('animal');
+    this.domElement.css( "background-color", this.color);
+    this.domElement.attr( 'data-uid', this.uid);
+    //trigger bindElementsEvents
+    this.bindElementEvents();
 }
 
+Animal.prototype.getDomElement = function() {
+    return this.domElement;
+}
 
-
-var animalsConfig = [
-    {
-        name: "rhinoceros",
-        health: 3,
-        speed: 1,
-        color: "yellow",
-        assets: {
-            moving: [],
-            dying: [],
-            sounds: []
-        }
-    }
-];
 
 
 

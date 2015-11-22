@@ -43,9 +43,13 @@ Game.prototype.animateOut = function() {
 };
 
 Game.prototype.startGame = function() {
-	/*var animalCollection = new AnimalCollection(),
+	/*var animalCollection = new AnimalController(),
 			shootThemAll = new AnimalView(animalCollection);
 
 	shootThemAll.init();*/
+	console.log( "starting game" );
+	var anCo = new AnimalController();
+	anCo.init(animalsConfig, lanesConfig);
+	anCo.populateLanes();
 
 }
