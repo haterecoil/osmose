@@ -3,4 +3,15 @@
 
 .animal {
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  padding: 5px;
+  margin : auto;
+  -webkit-user-select: none;
+}
+
+.lane {
+  display: inline-block;
+  float: left;
+  width: 80px;
+  padding: 10px;
+}

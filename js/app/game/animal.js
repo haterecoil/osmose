@@ -76,7 +76,7 @@ Animal.prototype.move = function(plusOrMinus) {
 Animal.prototype.getHit = function() {
     //what happens when animal gets hit ?
     this.decrementHealth();
-    console.log( "got hit" );
+    console.log( "animal n°"+ this.uid +" got hit" );
 }
 
 Animal.prototype.decrementHealth = function(hit) {
@@ -89,7 +89,7 @@ Animal.prototype.decrementHealth = function(hit) {
 Animal.prototype.die = function() {
     //when health is 0
     console.log( "oups a "+ this.name +" is dead !" );
-    this._onDeath.dispatch(this);
+    this._onDeath.dispatch(this.uid);
 }
 
 Animal.prototype.bindElementEvents = function() {
@@ -110,7 +110,6 @@ Animal.prototype.setDomElement = function() {
 Animal.prototype.getDomElement = function() {
     return this.domElement;
 }
-
 
 
 

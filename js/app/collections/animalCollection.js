@@ -24,46 +24,23 @@ AnimalCollection
 
 var AnimalController = function() {
     this.speciesTracker = [];
+    this.deadSpeciesCounter = 0;
     this.animalInstances = [];
-    this.speciesConf = [];
-    this.lanes = [];
+    this.lanes = new Lanes();
+    var anco = this;
 }
 
-AnimalController.prototype.init = function(animalsConfig, lanesConfig) {
+AnimalController.prototype.init = function(animalsConfig) {
     console.log( "anco init -- start" );
     this.setSpecies(animalsConfig);
-    this.setLanes(lanesConfig);
+    this.lanes.appendToHtml();
     console.log( "anco init -- end" );
 }
 
 AnimalController.prototype.setSpecies = function(speciesConf) {
     //read conf file   -> @todo: another conf than animals so auto metaname load ?
     if (void 0 === speciesConf ) return;
-    /*conf.forEach(function(curr, index, array){
-
-        //populate speciesTracker with objects "animalName" : {deathAsset, etc.} ?
-        this.speciesTracker.push({
-            name: curr.name,
-            max: curr.quantity,
-            count: 0
-        });
-
-    });*/
     this.speciesTracker = speciesConf; // @todo: :'(
-}
-
-AnimalController.prototype.setLanes = function(lanesConf) {
-    //read conf file --> @todo: abstract function for both ? setProperty(property, confArray) ?
-    if (void 0 === lanesConf ) return;
-    lanesConf.forEach(function(lane, index, array){
-        //populate this.lanes with objects {maxQty, width, currQty}
-        this.lanes.push({
-            count: 0,
-            max: lane.max,
-            width: lane.width
-        });
-
-    }, this);
 }
 
 AnimalController.prototype.setAnimalInstance = function(animal, laneIndex){
@@ -72,64 +49,44 @@ AnimalController.prototype.setAnimalInstance = function(animal, laneIndex){
         laneIndex: laneIndex,
         species: animal.name
     });
-    this.lanes[laneIndex].count++;
 };
 
 AnimalController.prototype.populateLanes = function() {
     /*create enough animals to fill the lanes*/
     //gather lane slots
     console.log( "anCo populate -- start" );
-    var laneSlots = [];
-    this.lanes.forEach(function(curr, index, array){
-        for (var i = 0; i < curr.max; i++) {
-            var slot = {
-                laneIndex: index
-            }
-            laneSlots.push(slot);
-        }
-    }, this);
+    var laneIndexes = this.lanes.getLaneSlots();
 
-    console.log( "laneSlots length : " + laneSlots.length);
+    console.log( "laneSlots length : " + laneIndexes.length);
     //for each slot, create an animal and append it to the lane
-    while (laneSlots.length > 0) {
+    while (laneIndexes.length > 0) {
         //select a random slot so it's not ordered
-        var randomIndex = Math.floor(Math.random()*laneSlots.length)
-        var randomSlot = laneSlots[randomIndex];
+        var randomIndex = Math.floor(Math.random()*laneIndexes.length)
+        var randomSlot = laneIndexes[randomIndex];
+
         //create a random animal and append it to html
         var animal = this.createRandomAnimal();
+        this.lanes.appendToLane(animal.domElement, randomSlot);
 
+        console.log( "Lane : " +randomSlot+" Animal : " + animal.uid );
         //save reference
-        this.setAnimalInstance(animal, randomSlot.laneIndex);
-
+        this.setAnimalInstance(animal, randomSlot);
         //no infinite loop plz :p
-        laneSlots.splice(randomIndex, 1);
+        laneIndexes.splice(randomIndex, 1);
     }
+    this.animalInstances.forEach(function(curr, i, a){
+        console.log( "__ Lane "+curr.laneIndex+" Animal "+curr.instance.uid );
+    })
     console.log( "anco populate -- end" );
 }
 
-AnimalController.prototype.getEmptiestLaneIndex = function() {
-    //select the emptiest lane
-    var lane = -1;
-    var min = 2.0;
-    this.lanes.forEach(function(curr, index, array) {
-       if ( curr.count < curr.max ) {
-           min = curr.count/curr.max < min ? curr.count/curr.max : min;
-           lane = index;
-       }
-    }, this);
-
-    if ( lane > -1 && min < 1 ) return lane;
-    else return -1;
-}
-
-AnimalController.prototype.balanceLanes = function(animal) {
+AnimalController.prototype.balanceLanes = function() {
     //@todo rename
     // should put new animals in correct lane
-    var laneIndex = this.getEmptiestLaneIndex();
-    if (laneIndex < 0) return;
-
-    var animal = this.createRandomAnimal();
-    this.lanes[laneIndex].count++;
+    if ( this.lanes.getEmptiestLaneIndex() > -1 ){
+        var animal = this.createRandomAnimal();
+        this.lanes.appendToLane(animal.domElement);
+    }
 
 }
 
@@ -139,14 +96,19 @@ AnimalController.prototype.checkSpeciesDeath = function(species) {
 AnimalController.prototype.onSpeciesDeath = function(speciesRef) {
     //alternative to checkSpeciesDeath (if only onanimaldeath triggers)
     console.log( speciesRef + "  is dead :o");
+    this.deadSpeciesCounter++;
+    if (this.deadSpeciesCounter == this.speciesTracker.length) {
+        this.noMoreSpecies();
+    }
 }
+
 AnimalController.prototype.onAnimalDeath = function(animalUid) {
     /*organize things happening when an animal dies*/
-    console.log( "animal n°"+animalUid+" is dead" );
-    var animalReference = this.getAnimalByUid(animalUid);
 
-    //decr its lane
-    this.lanes[animalReference.ref.laneIndex].count--;
+    var animalReference = this.getAnimalByUid(animalUid);
+    console.log( "animal n°"+animalUid+" is dead from lane "+animalReference.ref.laneIndex );
+    //remove from lane
+    this.lanes.removeFromLane(animalUid, animalReference.ref.laneIndex);
 
     //decr speciesTracker
     for (var i = 0 ; i < this.speciesTracker.length; i++) {
@@ -164,7 +126,10 @@ AnimalController.prototype.onAnimalDeath = function(animalUid) {
 
     //balance lanes
     this.balanceLanes();
+}
 
+AnimalController.prototype.noMoreSpecies = function() {
+    console.log( "end of game :)" );
 }
 
 AnimalController.prototype.getAnimalByUid = function(animalUid) {
@@ -194,25 +159,32 @@ AnimalController.prototype.createAnimal = function(speciesName) {
     //create an Animal from its speciesName
     var animal = new Animal();
     animal.configure(animalConf)
+    animal._onDeath.add(this.onAnimalDeath.bind(this));
+    //set up dom
+    animal.initView();
+
+    $(animal.domElement).text(animal.uid);
 
     //keep count
     animalConf.count++;
-
-    //append to html
-    animal.initView();
-    this.appendToHtml(animal);
 
     return animal;
 }
 
 AnimalController.prototype.createRandomAnimal = function() {
     var randomAnimal = null;
+    var deadSpecies = 0;
+
     while ( randomAnimal === null) {
         //select species
         var species = this.speciesTracker[Math.floor(Math.random()*this.speciesTracker.length)];
         //is max < qty ?
         if ( species.count < species.max ) {
             randomAnimal = this.createAnimal(species.name);
+        } else {
+            deadSpecies++;
+            if (deadSpecies == this.speciesTracker.length)
+                this.noMoreSpecies
         }
     };
     return randomAnimal;
@@ -221,10 +193,93 @@ AnimalController.prototype.createRandomAnimal = function() {
 AnimalController.prototype.appendToHtml = function(animal) {
     var $container = $('#game')
     $container.append(animal.getDomElement());
-
 }
 
+var Lanes = function() {
+    this.lanes = [
+        {
+            count: 0,
+            max: 3,
+            width: 200,
+            template: "<div class='lane lane0'></div>",
+            $domElement: null
+        },
+        {
+            count: 0,
+            max: 3,
+            width: 350,
+            template: "<div class='lane lane1'></div>",
+            $domElement: null
+        },
+        {
+            count: 0,
+            max: 3,
+            width: 500,
+            template: "<div class='lane lane2'></div>",
+            $domElement: null
+        }
+    ];
+}
 
+Lanes.prototype.getEmptiestLaneIndex = function() {
+    //select the emptiest lane
+    var lane = -1;
+    var min = 2.0;
+    this.lanes.forEach(function(curr, index, array) {
+        if ( curr.count < curr.max ) {
+            min = curr.count/curr.max < min ? curr.count/curr.max : min;
+            lane = index;
+        }
+    }, this);
+
+    return lane;
+}
+
+Lanes.prototype.getLaneSlots = function() {
+    var laneSlots = [];
+    this.lanes.forEach(function(curr, index, array){
+        for (var i = 0; i < curr.max; i++) {
+            laneSlots.push(index);
+        }
+    }, this);
+
+    console.log( JSON.stringify(laneSlots ));
+
+    return laneSlots;
+}
+
+Lanes.prototype.increment = function(laneIndex) {
+    this.lanes[laneIndex].count++;
+}
+Lanes.prototype.decrement = function(laneIndex) {
+    this.lanes[laneIndex].count--;
+}
+
+Lanes.prototype.appendToHtml = function() {
+    var $container = $('#lanes');
+    this.lanes.forEach(function(lane, index, array){
+        lane.$domElement = $(lane.template);
+        $container.append(lane.$domElement);
+    }, this);
+}
+
+Lanes.prototype.appendToLane = function(animalDomElement, laneIndex) {
+    console.log( "appending to lane" );
+    if (void 0 === laneIndex) {
+        debugger;
+        var laneIndex = this.getEmptiestLaneIndex();
+    }
+    if (laneIndex == -1) debugger;
+    this.lanes[laneIndex].$domElement.append(animalDomElement);
+    this.increment(laneIndex);
+    console.log( "__ Appending Lane "+laneIndex+" Animal "+$(animalDomElement).attr("data-uid") );
+}
+
+Lanes.prototype.removeFromLane = function(animalUid, laneIndex) {
+    $(".lane"+laneIndex).find('[data-uid='+animalUid+']').remove();
+    console.log( "lets remove " + animalUid + "from lane " + laneIndex);
+    this.decrement(laneIndex);
+}
 
 var lanesConfig = [
     {
