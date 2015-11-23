@@ -1,0 +1,38 @@
+// Bourbon
+@import "bourbon/bourbon";
+
+// Reset
+@import "reset";
+
+// Fonts
+@import "fonts";
+
+// Body
+html, body {	
+	-moz-osx-font-smoothing: grayscale;
+	 -webkit-font-smoothing: antialiased;
+			-moz-font-smoothing: antialiased;
+			 -ms-font-smoothing: antialiased;
+					 font-smoothing: antialiased;
+}
+
+body {
+	width: 100%;
+	height : 100%;
+	overflow : hidden;
+	background-color: #BFA65A;
+	color: #000;
+	font-size: 12px;
+	@include fontReg();
+}
+
+// Common
+@import "common/components";
+
+@import "common/loader";
+@import "common/header";
+@import "common/footer";
+
+// Views
+@import "views/home";
+@import "views/experience";
