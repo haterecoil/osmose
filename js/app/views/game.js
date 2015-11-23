@@ -51,5 +51,6 @@ Game.prototype.startGame = function() {
 	var anCo = new AnimalController();
 	anCo.init(animalsConfig, lanesConfig);
 	anCo.populateLanes();
+	anCo.draw();
 
 }

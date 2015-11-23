@@ -37,8 +37,10 @@ var Animal = function() {
     this.name = "default";
     this.color = " grey";
 
-    this.posX = -1;
-    this.posY = -1;
+    this.posX = 0;
+    this.posY = 0;
+
+    this.side = -1;
 
     this.template = "<div></div>";
     this.domElement = null;
@@ -52,6 +54,8 @@ Animal.prototype.configure = function(conf) {
     this.health = conf.health;
     this.name = conf.name;
     this.color = conf.color;
+    this.speed = conf.speed;
+    console.log( JSON.stringify(conf) );
 }
 
 Animal.prototype.initView = function() {
@@ -61,16 +65,20 @@ Animal.prototype.initView = function() {
 
 Animal.prototype.setPosition = function(posX, posY) {
     //set spawn position
-    this.posX = posX;
-    this.posY = posY; //maybe Y is defined by css ?
+    this.posX = 0;
+    this.posY = 0; //maybe Y is defined by css ?
 }
 
 Animal.prototype.move = function(plusOrMinus) {
     //move to the left or to the right
-    if (plusOrMinus > 0 )
-        this.posX = this.posX + speed;
-    else
-        this.posX = this.posX - speed;
+    this.posX = this.posX + this.side*this.speed;
+    this.domElement.css({"transform": "translateX("+ this.posX +"px)"});
+}
+Animal.prototype.goRight = function() {
+    this.side = 1
+}
+Animal.prototype.goLeft = function() {
+    this.side = -1;
 }
 
 Animal.prototype.getHit = function() {
