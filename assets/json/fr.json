@@ -1,6 +1,19 @@
 {
 	"home": {
-		"title": "Home",
-		"content": "I'm the homepage"
+		"title": "Accueil",
+		"content": "Je suis l'accueil",
+		"playername_label": "Votre nom"
+	},
+	"game": {
+		"title": "Bigfive le jeu !",
+		"content": "Tue les tous niark niark niark"
+	},
+	"trophy": {
+		"title": "Jeu fini"
+	},
+	"commons": {
+		"home": "Accueil",
+		"game": "Jeu",
+		"trophy": "fin du jeu"
 	}
 }
