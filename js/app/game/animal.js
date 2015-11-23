@@ -111,8 +111,6 @@ Animal.prototype.getDomElement = function() {
     return this.domElement;
 }
 
-
-
 //lol
 function color(){
     return colors[Math.floor(Math.random()*colors.length)];
