@@ -69,7 +69,7 @@
   			background-position: 0 0; 
   			-webkit-background-clip:text;  
  			  -webkit-text-fill-color: transparent;
-  			animation : move-background 20s infinite alternate linear;
+  			animation : move-background 40s infinite alternate linear;
   			line-height: 110%;
   			pointer-events: none;
   		}
@@ -101,24 +101,15 @@
   
   /* Phase 3 : choose a profil picture or use the webcam */
 
-  .background-profil-picture{
-    position: absolute;
-    background-color: #fefefe;
-    width: 90%;
-    height: 90%;
-    top: 5%;
-    left: 5%;
-    z-index :9;
-    opacity: 0.8;
-  }
 
   .profil-picture{
+    display:none;
     position: absolute;
-    width: 98%;
-    height: 98%;
-    top: 5%;
-    left: 5%;
+    width: 100%;
+    height: 100%;
     z-index: 10;
+    background: url(../../img/background.png) no-repeat;
+    background-size: cover;
     
     .info{
       font-family: 'Playfair Display SC', serif;
@@ -126,7 +117,32 @@
       font-size: 36px;
       color: #313131;
       margin-top : 1%;
-      margin-bottom : 5%;
+    }
+
+    p{
+      font-family: 'Lato', serif;
+      text-align: center;
+      font-size: 20px;
+      line-height: 27px;
+      margin-top:3%;
+    }
+    
+    ul{
+      margin-top:3%;
+      margin-left:30%;
+      li{
+        float:left;
+        margin:10px;
+        border: 2px solid transparent;
+
+          img{
+            width:100px;
+            height:100px;
+          }
+          &:hover{
+          border:2px solid #E8D8A0;
+        }
+        }
     }
 
     .button-webcam{
@@ -138,75 +154,78 @@
       color: #732412;
       background-color: #E8D8A0;
       cursor: pointer;
-      position: absolute;
+    }
+
+    .call-webcam{
+    }
+    .random-picture{
+  
+    }
+
+    .take-picture{
+      display:none;
     }
     .webcam-container{
-      float : left;
-      display : none;
+      display : none;  
+      clear:both;
+      margin-top:15%;
 
       video{
-        width: 640px;
-        height: 480px;
-        left:5%;
+        width: 400px;
+        heigh:300px;
+        position:absolute;
+        background-color:yellow;
+      }
+
+      .filter{
+        width:150px;
+        height:200px;
+        border-radius:500px;
+        margin-left:125px;
+        margin-top:50px;
+        position:absolute;
+        border:2px solid yellow;
+      }
+
+      canvas{
+        /*transform: scale(0.3);*/
+        width:150px;
+        border: 2px solid transparent;
+        margin-left:20%;
+        position:absolute;
+        &:hover{
+          border:2px solid #E8D8A0;
+        }
       }
     }
+    
+    .validate{
+      width: 100%;
+      height:100%;
+      position:absolute;
+      top:0;
+      display:none;
+
+      .background{
+        background:black;
+        width:100%;
+        height:100%;
+        opacity:0.5;
+        position:absolute;
+      }
+      .pop{
+        width:20%;
+        height:20%;
+        background:white;
+        position:absolute;
+      }
+    }
+
   }
 
 }
 
-  /* Phase 3 : ask for picture */
-  /* .ask-picture{
-    position: absolute;
-    background-color: #fefefe;
-    width: 80%;
-    height: 80%;
-    top: 0;
-    left: 0;
-    z-index: 10;
-
-      .info{
-        font-family: 'Playfair Display SC', serif;
-        text-align: center;
-        font-size: 36px;
-      }
-      .container-webcam{
-        width: 640px;
-        height: 480px;
-        border: 2px solid red;
-
-        .button-webcam{
-          width: 15%;
-          font-family: 'Playfair Display SC', serif;
-          text-align: center;
-          font-size: 24px;
-          padding: 10px;
-          margin-top: 0%;
-          color: #732412;
-          background-color: #E8D8A0;
-          cursor: pointer;
-          position: absolute; 
-        }
-        .print-video{
-          display: none;
-
-          .circle-hunter{
-            width: 200px;
-            height: 300px;
-            border: 5px solid red;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            border-radius: 50%;
-            left: 220px;
-            top: 90px; 
-          }
-        }
-      }
-  }
-
-}  */
-
+  
 /* All the animation of the home */
 
 /* Animation of the Phase 1 */
