@@ -1,0 +1,26 @@
+#game{
+
+  .animal {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    margin: 5px;
+    display: inline-block;
+    -webkit-user-select: none;
+    -webkit-transition: transform 0.2s ease-in-out;
+    -moz-transition: transform 0.2s ease-in-out;
+    -ms-transition: transform 0.2s ease-in-out;
+    -o-transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    * {
+      -webkit-user-select: none;
+    }
+  }
+
+  .lane {
+    height: 80px;
+    width: auto;
+    -webkit-user-select: none;
+  }
+
+}
