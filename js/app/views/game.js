@@ -57,6 +57,10 @@ Game.prototype.animateOut = function() {
 	this.domElem.fadeOut(function(){
 		self.onAnimateOut();
 	});
+
+	window.location.href = "/information";
+
+
 	console.log("--View: Goodbye Game :-)");
 };
 
@@ -123,13 +127,15 @@ Game.prototype.endOfGame = function() {
 							var p = document.createElement('p');
 							$(p).addClass('end-text');
 							$('#game').prepend(p);
-							$(p).text('#BIGFIVE, never again. Help us.').fadeIn(1000, function(){
+							$(p).text('#BIGFIVE, never again. Help us.').fadeIn(400);
+							setTimeout(function(){
+								setTimeout(function(){
 								$(p).fadeOut(1000, function(){
 									this.animateOut();
 								}.bind(this))
-							}.bind(this))
+							}.bind(this))}.bind(this),2000)
 						}.bind(this))
-					}.bind(this));
+					}.bind(this), 3000);
 				}.bind(this), 1000);
 				$(p).fadeOut(1000);
 			}.bind(this), 4500);

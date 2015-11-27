@@ -24,6 +24,7 @@ MainLoader.prototype.animateIn = function() {
 		self.onAnimateIn();
 	});
 
+
 };
 
 MainLoader.prototype.animateOut = function() {
