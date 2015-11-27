@@ -1,8 +1,8 @@
-
+//@todo set tempalte in .hbs template
 var lanesConfig = [
     {
         count: 0,
-        max: 3,
+        max: 4,
         width: 200,
         template: "<div class='lane lane0'><div class='background-lane background-lane--0'></div></div>",
         $domElement: null
@@ -16,7 +16,7 @@ var lanesConfig = [
     },
     {
         count: 0,
-        max: 4,
+        max: 2,
         width: 500,
         template: "<div class='lane lane2'><div class='background-lane background-lane--2'></div></div>",
         $domElement: null
@@ -30,7 +30,7 @@ var animalsConfig = [
         dead: 0,
         population: 1,
         health: 1,
-        speed: 34,
+        speed: 134,
         color: "yellow",
         assets: {
             moving: { svgPath : '/img/game_svg/s_buffle.svg#animal' },
@@ -42,9 +42,9 @@ var animalsConfig = [
         name: "elephant",
         alive: 0,
         dead: 0,
-        population: 2,
+        population: 0,
         health: 1,
-        speed: 20,
+        speed: 120,
         color: "blue",
         assets: {
             moving: { svgPath : '/img/game_svg/s_elephant.svg#animal' },
@@ -56,9 +56,9 @@ var animalsConfig = [
         name: "lion",
         alive: 0,
         dead: 0,
-        population: 1,
+        population: 0,
         health: 1,
-        speed: 45,
+        speed: 145,
         color: "red",
         assets: {
             moving: { svgPath : '/img/game_svg/s_lion.svg#animal' },
@@ -70,9 +70,9 @@ var animalsConfig = [
         name: "rhinoceros",
         alive: 0,
         dead: 0,
-        population: 1,
+        population: 0,
         health: 1,
-        speed: 33,
+        speed: 133,
         color: "red",
         assets: {
             moving: { svgPath : '/img/game_svg/s_rhinoceros.svg#animal' },
@@ -84,9 +84,9 @@ var animalsConfig = [
         name: "leopard",
         alive: 0,
         dead: 0,
-        population: 2,
+        population:0,
         health: 1,
-        speed: 50,
+        speed: 150,
         color: "red",
         assets: {
             moving: { svgPath : '/img/game_svg/s_leopard.svg#animal' },

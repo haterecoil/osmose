@@ -45,7 +45,7 @@ View Transition
   User.js
 View Game
   Game.js
-View Trophy
+View Information
 
 *0.000002* Les grandes étapes
 jeu -> tirer sur des cibles (div) -> fin de partie

@@ -195,11 +195,6 @@ View.prototype.onAnimateOut = function() {
 
 };
 
-function sayHello(){
-	console.log( "hello " + this.templateId );
-}
-
-
 /*
  How to customize parent's prototype ?
 

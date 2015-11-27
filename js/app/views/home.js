@@ -11,6 +11,12 @@ var Home = function(){
 
 	this.webcam = new Webcam();
 
+	this._saveProfilePicture = new signals.Signal();
+	//@todo localStorage
+	this.webcam._onImagePictureChosen.add(function(){
+		this._saveProfilePicture.dispatch(this.webcam.screenshot);
+	}.bind(this));
+
 };
 
 Home.prototype = Object.create(View.prototype);
@@ -46,6 +52,10 @@ Home.prototype.animateOut = function() {
 
 };
 
+
+
+
+
 /* Object Webcam */
 var Webcam = function(){
     this.container 	= ".webcam-container";
@@ -53,6 +63,10 @@ var Webcam = function(){
     this.screenshot; // Final picture
     this.video; // Webcam video
     this.canvas; // Canvas print the screenshot
+
+	this._onImagePictureChosen = new signals.Signal();
+
+
 }
 
 //Click on let's go, launh webcam phase
@@ -64,6 +78,8 @@ Webcam.prototype.bindLetsGo = function(){
 
 	this.bindCallWebcam();
 	this.bindChooseImg();
+	this.bindGoToGame();
+
 };
 
 // Add balise video in HTML
@@ -156,8 +172,7 @@ Webcam.prototype.bindChooseCanvas = function(){
 Webcam.prototype.canvasAsProfil = function(){
 	var canvas = this.canvas;
 	this.screenshot = canvas[0].toDataURL();
-	console.log(this.screenshot);
-	
+
 	$('.validate').css('display', 'block');
 	this.bindChooseNo();
 };
@@ -170,8 +185,7 @@ Webcam.prototype.bindChooseImg = function(){
 // Screenshot is officialy the img
 Webcam.prototype.imgAsProfil = function(e){
 	this.screenshot = $(e.toElement).attr('src');
-	console.log(this.screenshot);
-	
+
 	$('.validate').fadeIn(1000);	
 	this.bindChooseNo();
 };
@@ -181,5 +195,11 @@ Webcam.prototype.bindChooseNo = function(){
 	$('.validate .pop .no').bind('click', function(){
 		$('.validate').fadeOut(1000);
 	});
+}
+
+Webcam.prototype.bindGoToGame = function(){
+	$('.button-webcam.yes').click(function(){
+		this._onImagePictureChosen.dispatch();
+	}.bind(this))
 }
 

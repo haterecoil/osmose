@@ -93,6 +93,7 @@ home, html {
     height: 90%;
     display: inline-block;
     position: absolute;
+
     -webkit-user-select: none;
     -webkit-transition: transform 0.4s ease-in-out;
     -moz-transition: transform 0.4s ease-in-out;
@@ -101,6 +102,12 @@ home, html {
     transition: transform 0.4s ease-in-out;
 
     @include animation(0s, 0.2s, jumping, none, infinite);
+
+    object {
+      height: 400%;
+      width: auto;
+      margin-top: -75%;
+    }
 
     * {
       -webkit-user-select: none;
@@ -121,6 +128,7 @@ home, html {
     width: 110%;
     height: 50%;
     top: 4%;
+
   }
 
 
@@ -132,6 +140,7 @@ home, html {
     -ms-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;*/
+
 
     .background-lane {
       position: absolute;
@@ -168,8 +177,51 @@ home, html {
     bottom: 0;
   }
 
+  .the_end {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    z-index:1000;
+    display: none;
+  }
+  .end-text {
+    color: white;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    width: 80%;
+    height: 80px;
+    font-size: 36px;
+    font-family:roboto, sans-serif;
+    margin: auto;
+    top: 50%;
+  }
 
-
+  .user-picture {
+    z-index: 12;
+    width: 640px;
+    height: 480px;
+    position: relative;
+    margin: auto;
+    /* left: 50%; */
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    .user-picture--img  {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      margin-top: -170px;
+      margin-left: 7px;
+      transform: scale(0.35);
+    }
+    .user-picture--mask {
+      position: absolute;
+    }
+  }
 }
 
 @include keyframe(zerotozero) {

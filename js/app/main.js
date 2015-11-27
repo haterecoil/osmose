@@ -9,7 +9,6 @@ function App(){
 	// Signals
 	this._onResize = new signals.Signal();
 	this._onUpdate = new signals.Signal();
-	this._onNameProvided = new signals.Signal();
 
 	// Datas
 	this.datas = null;
@@ -36,9 +35,6 @@ App.prototype.init = function() {
 
 	// Load datas
 	this.loadDatas();
-
-	//Set up a player
-	this.player = new Player();
 
 };
 

@@ -23,7 +23,7 @@ Trophy.prototype.animateIn = function() {
     this.domElem.fadeIn(function(){
         self.onAnimateIn();
     });
-    console.log("--View: Hello Trophy :-)");
+    console.log("--View: Hello Information :-)");
 };
 
 Trophy.prototype.animateOut = function() {
@@ -35,5 +35,5 @@ Trophy.prototype.animateOut = function() {
     this.domElem.fadeOut(function(){
         self.onAnimateOut();
     });
-    console.log("--View: Goodbye Trophy :-)");
+    console.log("--View: Goodbye Information :-)");
 };

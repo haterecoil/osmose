@@ -1,0 +1,291 @@
+#background-map{
+	position:fixed;
+	width:100%;
+	height:100%;
+	top:0%;
+	left:0%;
+}
+
+.bg_img{
+	width:100%;
+}
+
+#liste{
+	display:none;
+	position:fixed;
+	margin-left: auto;
+ 	margin-right: auto;
+ 	margin-bottom: 50px;
+ 	height:100%;
+ 	width:100%;
+}
+
+#liste h1 {
+	font-family: 'Frijole', cursive;
+	color: #c7a142;
+    font-size: 48px;
+    text-align: center;
+    text-transform: uppercase; 
+    margin-top: 0px;
+    margin-bottom: 0px; 
+}
+
+#liste h2{
+	font-family: 'Playfair Display', serif;
+	color: #000000;
+	font-size: 30px;
+	text-align:center;
+	margin-top: 400px;
+	position: relative;
+}
+#liste a {
+  text-decoration: none;
+  color:#000000;
+  
+}
+#slide{
+	position: absolute;
+	margin-top:50px;
+}
+
+.slide_img{
+	position:fixed;
+	width:500px;
+	margin-left:-250px;
+	left:50%;
+}
+
+.fleche_gauche{
+	position:fixed;
+	left: 50%;
+	margin-left:-350px;
+	margin-top:135px;
+}
+
+.fleche_droite{
+	position:fixed;
+	left: 50%;
+	margin-left:350px;
+	margin-top:135px;
+}
+
+.download-img{
+	position:fixed;
+	left: 50%;
+	margin-left:-290px;
+	margin-top:280px;
+}
+
+#map{
+	
+	position:fixed;
+	margin-left: -300px;
+ 	margin-top:0px;
+ 	left:50%;
+ 	margin-bottom: 50px;
+}
+
+#map-africa{
+	position: fixed;
+}
+
+#map-south-africa{
+	width:125px;
+	position: fixed;
+	top:457px;
+	left:50%;
+	margin-left:-44px;	
+	
+}
+.south_africa{
+	width:100%;
+}
+
+.big, #map-south-africa.big{
+	width:600px;
+	position: fixed;
+	top:50px;
+	left:50%;
+	margin-left:-300px;
+}
+
+#map-south-africa-big{
+	width:600px;
+	position: fixed;
+	top:50px;
+	left:50%;
+	margin-left:-300px;
+}
+#lancement{
+	position:fixed;
+	top:50px;
+	left:50px;
+	font-family: 'Frijole', cursive;
+	color: #c7a142;
+}
+
+#lancement.invisible{
+	left:-150px;
+}
+.lien-go a{
+	color: #c7a142;
+	text-decoration:none;
+}
+#map-africa, #map-south-africa, #problem-solution, #lancement, #text-NordOuest, #text-NordEst, #text-SudOuest, #text-SudEst, #change-screen-map, #text-NordOuest-sol, #text-NordEst-sol, #text-SudOuest-sol, #text-SudEst-sol, #change-screen-map-sol, #solution, #problem{
+	transition: all 1s ease;
+}
+
+.invisible{
+	opacity: 0;
+}
+
+.visible, #problem-solution.visible{
+	opacity:1;
+	top:0%;
+}
+
+#problem-solution{
+	opacity:0;
+	position:fixed;
+	font-family: 'Playfair Display', serif;
+	font-size:14px;
+	top:100%;
+}
+
+#solution{
+	position:fixed;
+	opacity:0;	
+}
+#solution.affich{
+	opacity:1;
+}
+#problem{
+	position:fixed;
+	opacity:1;
+}
+#problem.masque{
+	opacity:0;
+}
+#problem h3{
+	margin-left:-100px;
+	font-family: 'Frijole', cursive;
+	font-size:24px;
+	color: #c7a142;
+}
+
+#problem a, #solution a{
+	color: #c7a142;
+	text-decoration:none;
+}
+
+#solution h3{
+	margin-left:-140px;
+	font-family: 'Frijole', cursive;
+	font-size:24px;
+	color: #c7a142;
+}
+#text-NordOuest, #text-NordOuest-sol{
+	position:fixed;
+	left:0px;
+	margin-left:-330px;
+	top:100px;
+	height:100px;
+	width:250px;
+}
+#text-NordOuest.app-gauche, #text-NordOuest-sol.app-gauche{
+	left:50%;
+}
+
+#text-NordOuest p, #text-NordOuest-sol p{
+	bottom:0px;
+}
+
+#text-NordEst, #text-NordEst-sol{
+	position:fixed;
+	left:50%;
+	margin-left:220px;
+	top:-60px;
+	height:100px;
+	width:250px;
+}
+
+#text-NordEst.app-haut, #text-NordEst-sol.app-haut{
+	top:40px;
+}
+
+#text-NordEst p, #text-NordEst-sol p{
+	position:absolute;
+	bottom:0px;
+}
+
+#text-SudEst, #text-SudEst-sol{
+	position:fixed;
+	left:80%;
+	margin-left:110px;
+	top:350px;
+	height:100px;
+	width:250px;
+}
+
+#text-SudEst.app-droite, #text-SudEst-sol.app-droite{
+	left:50%;
+}
+
+#text-SudOuest, #text-SudOuest-sol{
+	position:fixed;
+	left:50%;
+	margin-left:-450px;
+	top:600px;
+	height:100px;
+	width:250px;
+}
+
+#text-SudOuest.app-bas, #text-SudOuest-sol.app-bas{
+	top:350px;
+}
+
+#text-SudOuest p, #text-SudOuest-sol p{	
+	position:absolute;
+	bottom:0px;
+}
+
+.nord-est{
+	position: fixed;
+	width:30px;
+	left:50%;
+	margin-top:110px;
+	margin-left:140px;
+}
+
+.sud-est{
+	position: fixed;
+	width:30px;
+	left:50%;
+	margin-top:350px;
+	margin-left:30px;
+}
+.nord-ouest{
+	position: fixed;
+	width:30px;
+	left:50%;
+	margin-top:170px;
+	margin-left:-85px;
+}
+.sud-ouest{
+	position: fixed;
+	width:30px;
+	left:50%;
+	margin-top:420px;
+	margin-left:-150px;
+}
+
+#change-screen-map, #change-screen-map-sol{
+	position:fixed;
+	margin-left:240px;
+	left:80%;
+	top:440px;
+}
+
+#change-screen-map.app-change, #change-screen-map-sol.app-change{
+	left:50%;
+}

@@ -64,11 +64,11 @@ Router.prototype.createRoutes = function() {
 
 	});
 
-	// Trophy
-	crossroads.addRoute( '/trophy' , function(){
+	// Information
+	crossroads.addRoute( '/information' , function(){
 
 		self._onNavigate.dispatch({
-			view: 'trophy'
+			view: 'information'
 		});
 
 		console.log( '## Navigate view trophy' );

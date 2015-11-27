@@ -23,16 +23,17 @@ ViewController.prototype.init = function() {
 	this.views = {
 		'home'	: new Home(),
 		'game'	: new Game(),
-		'trophy': new Trophy()
+		'information' : new Information()
 	};
 
 };
 
 // Bind
 ViewController.prototype.bind = function() {
-	
 	// Listen to the router for navigate event
 	app.router._onNavigate.add( this.onNavigate, this );
+	// Pass user profile to the Game
+	this.views.home._saveProfilePicture.add( this.views.game.setProfilePicture, this.views.game );
 
 };
 

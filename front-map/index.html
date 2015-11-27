@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Big-5-end</title>
+
+      <!--Initialisation de la police de titre-->
+      <!--font-family: 'Frijole', cursive;-->
+      <link href='https://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'>
+
+      <!--Initialisation de la police des textes-->
+      <!--font-family: 'Playfair Display', serif;-->
+      <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+
+      <!-- Stylesheets -->
+      <link rel="stylesheet" href="css/carte.css">
+      
+  </head>
+  <body>
+    <div id="final">
+      <!-- Mise en place du background -->
+      <div id="background-map">
+        <img src="img/background.jpg" class="bg_img"></img>
+      </div>
+
+      <!-- La page du slideshow -->
+      <div id="liste">
+        <h1>Are you</h1>
+        <h1>proud of you ? </h1>
+        <div id="slide">
+          <img src = "img/lion.png" class="slide_img"></img>
+          <a href="#"><img src = "img/fleche-gauche.png" class="fleche_gauche"></img></a>
+          <a href="#"><img src = "img/fleche-droite.png" class="fleche_droite"></img></a>
+          <a href="img/download.png"><img src = "img/download.png" class="download-img"></img></a>
+        </div>
+        <!-- Lien qui permet de passé à l'écran des cartes -->
+        <h2><a href="#" class="affiche-map">Find solutions</a></h2>
+      </div>
+    
+      <!--La page des cartes -->
+      <div id="map">
+        <div id='lancement'>
+          <p class="lien-go"><a href="#">Go to the problems</a></p>
+        </div>
+        <!-- La carte de l'Afrique du Sud est détaché du reste de l'Afrique. Ce sont deux images distinctes. La map d'Afrique du Sud pourra se détacher du reste et grossire -->
+        <div id ='map-africa'>
+          <img src = "img/carte-03-min-without-south.png" class="africa"></img>
+        </div>
+         <div id='map-south-africa'><img src = "img/carte_zoom-05.png" class="south_africa"></img></div>
+
+          <!-- Lorsque le map d'Afrique du Sud est grosse, les problèmes et les solutions peuvent s'aficher successivement -->
+         <div id="problem-solution">
+           <img src="img/point.png" class="nord-est">
+           <img src="img/point.png" class="sud-est">
+           <img src="img/point.png" class="nord-ouest">
+           <img src="img/point.png" class="sud-ouest">
+
+           <!--Intégration des problèmes -->
+           <div id ="problem">
+            <h3>Problems</h3>
+            <div id= "text-NordOuest">
+              <p>Consequences of poaching : </br>
+              -  species extinction</br>
+              -  balance of ecosystem</br>
+              -  introduction of invasives species</p>
+            </div>
+            <div id= "text-NordEst">
+              <p><br><br><br>The illegal market</p>
+            </div>
+            <div id= "text-SudOuest">
+              <p>The traffic of wildlife products, by passing health checks is the cause of the spread of diseases such as avian flu or Ebola.</p>
+            </div>
+            <div id= "text-SudEst">
+              <p>The horns reduced powders, are coveted in asian countries</p>
+             </div>
+
+             <div id="change-screen-map"><h3><a href="#">Show the solutions</a></h3></div>
+           </div>
+
+            <!--Intégration des solutions -->
+           <div id ="solution">
+            <h3>Solutions</h3>
+            <div id= "text-NordOuest-sol">
+              <p>Faced with poarchers, Kenya decided to implant microchips in the horns of a thousand of rhinoceros</p>
+            </div>
+            <div id= "text-NordEst-sol">
+              <p>There is a free application to take in a fight against poaching: InstantWild</p>
+            </div>
+            <div id= "text-SudOuest-sol">
+              <p>Make donations to organisations such as WWF and IFAW</p>
+            </div>
+            <div id= "text-SudEst-sol">
+              <p>Keep poarchers away.</p>
+             </div>
+             <div id="change-screen-map-sol"><h3><a href="#">Show the problems</a></h3></div>
+           </div>
+           
+         </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/carte.js"></script>
+  </body>
+</html>

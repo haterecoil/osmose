@@ -8,10 +8,12 @@
 		"title": "Bigfive le jeu !",
 		"content": "Tue les tous niark niark niark"
 	},
-	"trophy": {
-		"title": "Jeu fini"
-	},
 	"commons": {
+		"home": "Accueil",
+		"game": "Jeu",
+		"trophy": "fin du jeu"
+	},
+	"information": {
 		"home": "Accueil",
 		"game": "Jeu",
 		"trophy": "fin du jeu"

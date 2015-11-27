@@ -225,6 +225,7 @@ AnimalCollective.prototype.noMoreAnimals = function() {
     console.log( "end of game :)" );
     this.gameIsRunning = false;
     this._endOfGame.dispatch();
+
 };
 /**
  * returns a animalInstances reference correpsonding to uid
