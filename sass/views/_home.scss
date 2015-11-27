@@ -1,6 +1,7 @@
 #home{
 	height: 100%;
   background-color: #BFA65A;
+  background: linear-gradient(115deg, #ed6e2b 10%, #f9d357 100%);
 	
 	/* Phase 1 : Animation just before the home presenation appear */
 	.phase1{
@@ -53,50 +54,70 @@
   		height: 100%;
   		width: 100%;
   		position: absolute;
-  		background-image: url('../../img/home_background.png');
-  		background-size: cover;
-  		background-repeat: no-repeat;
   		animation: anim-opacity 7s;
   		opacity: 1;
+      background: linear-gradient(115deg, #ed6e2b 10%, #f9d357 88%);
 
-  		.bigfive1{
-  			font-family: 'Frijole', cursive;
-  			font-size: 300px;
-  			opacity: 0.5;
- 			  text-align:center;
-  			color: #732412;
-  			background: url('../../img/sunset.jpg') no-repeat;
-  			background-position: 0 0; 
-  			-webkit-background-clip:text;  
- 			  -webkit-text-fill-color: transparent;
-  			animation : move-background 40s infinite alternate linear;
-  			line-height: 110%;
-  			pointer-events: none;
-  		}
-  		.bigfive2{
-  			font-family: 'Playfair Display SC', serif;
- 			font-size: 46px;
-  			top: 40%;
-  			left: 0;
-  			right: 0;
-  			text-align: center;
-  			color: #313131;
-  			position: absolute;
-  		}
-  		.button{
-  			display: block;
-    		width: 15%;
-    		font-family: 'Playfair Display SC', serif;
-   			text-align: center;
-    		font-size: 30px;
-    		padding: 10px;
-    		margin-left: 40%;
-    		margin-top: 0%;
-    		color: #732412;
-    		background-color: #E8D8A0;
-    		background-position: 100% 100%;
-    		cursor: pointer;
-  		}
+      .border{
+        border: 5px solid transparent;
+        -webkit-border-image: -webkit-linear-gradient(right, #FC913A 0%, #FF4E50 100%);
+        -webkit-border-image: -o-linear-gradient(right, #FC913A 0%, #FF4E50 100%);
+        -webkit-border-image: linear-gradient(to left, #FC913A 0%, #FF4E50 100%);
+        -o-border-image: -o-linear-gradient(right, #FC913A 0%, #FF4E50 100%);
+        border-image: linear-gradient(-115deg, #ed6e2b 10%, #f9d357 48%);
+        border-image-slice: 1;
+        width:500px;
+        margin-left:auto;
+        margin-right:auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        padding:5%;
+        animation: move-gradient 10s;
+        
+      
+              
+        .bigfive1{
+          font-family: 'Bevan', serif;
+          font-size: 150px;
+          text-align:center;
+          color: #CB3F24;
+          background: url('../../img/sunset.jpg') no-repeat;
+          -webkit-background-clip:text;  
+          -webkit-text-fill-color: transparent;
+          animation : move-background 30s infinite alternate linear;
+          opacity:.8;
+        }
+      
+        .bigfive2{
+          font-family: 'Roboto', sans-serif;
+          font-size: 28px;
+          text-align: center;
+          color: #CB3F24;
+           //background: url('../../img/sunset.jpg') no-repeat;
+          //-webkit-background-clip:text;  
+          //-webkit-text-fill-color: transparent;
+          animation : move-background 80s infinite alternate linear;
+          opacity:.8;
+          margin-top:3%;
+        }
+        .button{
+          display: block;
+          padding:10px;
+          width:200px;
+          font-family: 'Roboto', sans-serif;
+          text-align: center;
+          font-size: 20px;
+          margin-left: auto;
+          margin-right:auto;
+          margin-top: 10%;
+          color: #ECDA9D;
+          background-color: #CB3F24;
+          cursor: pointer;
+        }
+        .button:hover{
+        }
+      }
 	}
   
   /* Phase 3 : choose a profil picture or use the webcam */
@@ -108,19 +129,19 @@
     width: 100%;
     height: 100%;
     z-index: 10;
-    background: url(../../img/background.png) no-repeat;
+    background: linear-gradient(115deg, #ed6e2b 10%, #f9d357 44%);
     background-size: cover;
     
     .info{
-      font-family: 'Playfair Display SC', serif;
+      font-family: 'Roboto', sans-serif;
       text-align: center;
-      font-size: 36px;
+      font-size: 44px;
       color: #313131;
       margin-top : 1%;
     }
 
     p{
-      font-family: 'Lato', serif;
+      font-family: 'Roboto', sans-serif;
       text-align: center;
       font-size: 20px;
       line-height: 27px;
@@ -128,75 +149,82 @@
     }
     
     ul{
-      margin-top:3%;
-      margin-left:30%;
+      width:100%;
+      text-align:center;
+
       li{
-        float:left;
-        margin:10px;
+        display:inline-block;
         border: 2px solid transparent;
 
           img{
-            width:100px;
-            height:100px;
+            width:154px;
+            height:116px;
+            cursor:pointer;
           }
-          &:hover{
+      
+          canvas{
+            /*transform: scale(0.3);*/
+            width:150px;
+            border: 2px solid transparent;
+            cursor:pointer;
+          }
+
+        &:hover{
           border:2px solid #E8D8A0;
         }
-        }
+      }
+
     }
 
     .button-webcam{
-      width: 200px;
-      font-family: 'Playfair Display SC', serif;
+      display: block;
+      padding:10px;
+      width:200px;
+      font-family: 'Roboto', sans-serif;
       text-align: center;
-      font-size: 24px;
-      padding: 10px;
-      color: #732412;
-      background-color: #E8D8A0;
+      font-size: 20px;
+      margin-left: auto;
+      margin-right:auto;
+      color: #ECDA9D;
+      background-color: #CB3F24;
       cursor: pointer;
-    }
-
-    .call-webcam{
-    }
-    .random-picture{
-  
-    }
+      margin-top:3%;
+      box-shadow:0px 0px 2px #aaa
+     }
 
     .take-picture{
       display:none;
     }
     .webcam-container{
-      display : none;  
-      clear:both;
-      margin-top:15%;
+      display : none;
+      
+      .video{
+        position:relative;
+        width:400px;
+        margin:auto;
+        margin-top:3%;
 
-      video{
-        width: 400px;
-        heigh:300px;
-        position:absolute;
-        background-color:yellow;
-      }
+        video{
+          width: 400px;
+          height:300px;
+        }
 
-      .filter{
-        width:150px;
-        height:200px;
-        border-radius:500px;
-        margin-left:125px;
-        margin-top:50px;
-        position:absolute;
-        border:2px solid yellow;
-      }
-
-      canvas{
-        /*transform: scale(0.3);*/
-        width:150px;
-        border: 2px solid transparent;
-        margin-left:20%;
-        position:absolute;
-        &:hover{
-          border:2px solid #E8D8A0;
+        .filter{
+          position:absolute;
+          width:150px;
+          height:200px;
+          left:125px;
+          top:50px;
+          border:2px solid transparent;
+          -webkit-border-image: -webkit-linear-gradient(right, #FC913A 0%, #FF4E50 100%);
+          -webkit-border-image: -o-linear-gradient(right, #FC913A 0%, #FF4E50 100%);
+          -webkit-border-image: linear-gradient(to left, #FC913A 0%, #FF4E50 100%);
+          -o-border-image: -o-linear-gradient(right, #FC913A 0%, #FF4E50 100%);
+          border-image: linear-gradient(-115deg, #ed6e2b 10%, #f9d357 48%);
+          border-image-slice: 1;
         }
       }
+
     }
     
     .validate{
@@ -206,18 +234,34 @@
       top:0;
       display:none;
 
-      .background{
-        background:black;
-        width:100%;
-        height:100%;
-        opacity:0.5;
-        position:absolute;
+    .background{
+      background:black;
+      width:100%;
+      height:100%;
+      opacity:0.5;
+      position:absolute;
       }
-      .pop{
-        width:20%;
-        height:20%;
-        background:white;
-        position:absolute;
+    .pop{
+      padding-top:20px;
+      left:50%;
+      top:50%;
+      transform: translate(-50%, -50%);
+      width:300px;
+      height:200px;
+      background:white;
+      position:absolute;
+      margin-left:auto;;
+
+      div{
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+        font-size: 20px;
+      }
+
+      a{
+        margin-top:10%;
+      }
+
       }
     }
 
@@ -257,12 +301,10 @@
 }
 @keyframes move-background{
   0%{
-    background-position: 0 -5%;
-    opacity: 0.3
+    background-position: 0 10%;
   }
   100%{
-    background-position: 100% -5%;
-    opacity: 0.8;
+    background-position: 90% 10%;
   }
 }
 @keyframes anim-opacity{

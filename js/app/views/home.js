@@ -58,7 +58,8 @@ var Webcam = function(){
 //Click on let's go, launh webcam phase
 Webcam.prototype.bindLetsGo = function(){
 	$('.phase2 a').bind('click', function(){
-		$('.profil-picture').css('display', 'block');
+		$('.profil-picture').fadeIn(500);	
+		$('.phase2').fadeOut(1000);	
 	});
 
 	this.bindCallWebcam();
@@ -68,16 +69,16 @@ Webcam.prototype.bindLetsGo = function(){
 // Add balise video in HTML
 Webcam.prototype.appendVideoToHtml = function(){
 
-	$(this.container).append(document.createElement('video'));
-	$(this.container).append('<div class="filter"></div>')
-	this.video = $(this.container+' '+'video');
+	$(this.container).append('<div class="video"><video></video><div class="filter"></div></div>');
+	$(this.container).append()
+	this.video = $(this.container+' '+'.video'+' '+'video');
 };
 
 // Add balise canvas in HTML
 Webcam.prototype.appendCanvasToHtml = function(){
 	var $canvas = $(document.createElement('canvas')).attr({width:"640px", height:"480px"});
-	$(this.container).append($canvas);
-	this.canvas =   $(this.container+' '+'canvas');;
+	$(".li-canvas").append($canvas);
+	this.canvas =   $(".li-canvas"+' '+'canvas');;
 };
 
 // If error some button disapear
@@ -93,7 +94,7 @@ Webcam.prototype.showWebcam = function(){
 	// Manage button
 	$('.call-webcam').css('display', 'none');
 	$('.take-picture').css('display', 'block');
-	$(this.container).css('display', 'block');
+	$(this.container).fadeIn(5000);
 	
 	var self = this;
 
@@ -134,8 +135,12 @@ Webcam.prototype.bindTakeScreenshot= function(){
 
 // Create a canvas and print the screenshot
 Webcam.prototype.canvasScreenshot = function(){
-	this.appendCanvasToHtml();
-	var canvas = this.canvas
+	console.log(($('canvas').length));
+	if (!($('canvas').length)){
+		this.appendCanvasToHtml();
+    }
+    console.log(($('canvas').length));
+    var canvas = this.canvas;
     var context = canvas[0].getContext("2d");
 	context.drawImage(this.video[0], 0, 0, 640, 480);
 
@@ -167,14 +172,14 @@ Webcam.prototype.imgAsProfil = function(e){
 	this.screenshot = $(e.toElement).attr('src');
 	console.log(this.screenshot);
 	
-	$('.validate').css('display', 'block');
+	$('.validate').fadeIn(1000);	
 	this.bindChooseNo();
 };
 
 // If choose NO on validate
 Webcam.prototype.bindChooseNo = function(){
 	$('.validate .pop .no').bind('click', function(){
-		$('.validate').css('display', 'none');
+		$('.validate').fadeOut(1000);
 	});
 }
 
