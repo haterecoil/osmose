@@ -11,14 +11,18 @@
         _onDeath
         _onBirth
 
-    .configure(conf) // sets fro mconf
-    .setPosition
-    .move(side)
-    .getHit
-    .die
-    .bindElementEvents
-    .setDomElement
-    .getDomElement
+    .configure()
+    .initView()
+    .tweenInit()
+    .move()
+    .goRight()
+    .goLeft()
+    .getHit()
+    .decrementHealth()
+    .die()
+    .bindElementEvents()
+    .setDomElement()
+    .getDomElement()
 
     @todo:
     .nextFrame
@@ -34,48 +38,45 @@ var Animal = function() {
 
     //default conf
     this.health = 1;
-    this.name = "default";
-    this.color = " grey";
+    this.name   = "default";
+    this.color  = "grey";
 
     this.posX = 0;
-    this.posY = 0;
 
     this.side = -1;
 
-    this.template = "<div></div>";
     this.domElement = null;
 
-    this._onDeath = new signals.Signal();
+    this._onDeath   = new signals.Signal();
+    this._onHit     = new signals.Signal();
+
+    this.assets = {};
+
 }
 
 Animal.prototype.configure = function(conf) {
     //set all but position
     if ( void 0 === conf ) return;
     this.health = conf.health;
-    this.name = conf.name;
-    this.color = conf.color;
-    this.speed = conf.speed;
-    console.log( JSON.stringify(conf) );
+    this.name   = conf.name;
+    this.color  = conf.color;
+    this.speed  = conf.speed;
+    this.assets = conf.assets;
 }
 
 Animal.prototype.initView = function() {
-    this.setPosition(0,0);
-    this.setDomElement();
-}
+    //this.tweenInit();
 
-Animal.prototype.setPosition = function(posX, posY) {
-    //set spawn position
-    this.posX = 0;
-    this.posY = 0; //maybe Y is defined by css ?
+    this.setDomElement();
 }
 
 Animal.prototype.move = function(plusOrMinus) {
     //move to the left or to the right
     this.posX = this.posX + this.side*this.speed;
-    this.domElement.css({"transform": "translateX("+ this.posX +"px)"});
+    this.domElement.css({"transform": "translate("+ this.posX +"px) rotateY("+(this.side-1)*90+"deg)"});
 }
 Animal.prototype.goRight = function() {
-    this.side = 1
+    this.side = 1;
 }
 Animal.prototype.goLeft = function() {
     this.side = -1;
@@ -84,6 +85,7 @@ Animal.prototype.goLeft = function() {
 Animal.prototype.getHit = function() {
     //what happens when animal gets hit ?
     this.decrementHealth();
+    this._onHit.dispatch();
     console.log( "animal n°"+ this.uid +" got hit" );
 }
 
@@ -101,26 +103,29 @@ Animal.prototype.die = function() {
 }
 
 Animal.prototype.bindElementEvents = function() {
-    //binds click events
-    $(this.domElement).bind('click', this.getHit.bind(this));
+    $(this.domElement).find('object').load(function(e){
+        var path = $(e.target.getSVGDocument()).find('path');
+        path.bind('click', this.getHit.bind(this));
+        $(e.target.getSVGDocument()).find('svg').css('cursor', 'url(/img/cursor.png) 16 16, default');
+    }.bind(this))
+    $(this.domElement).find("path").bind('click', this.getHit.bind(this));
 }
 
 Animal.prototype.setDomElement = function() {
-    //create dom element from template
-    this.domElement = $(this.template);
-    this.domElement.addClass('animal');
-    this.domElement.css( "background-color", this.color);
+
+    //get template
+    var templateData = {
+        svgPath : this.assets['moving'].svgPath,
+        animalName: this.name,
+        animalUid: this.uid
+    }
+    var template = window.templates[ 'animal' ]( templateData );
+    this.domElement = $(template);
     this.domElement.attr( 'data-uid', this.uid);
-    //trigger bindElementsEvents
+
     this.bindElementEvents();
 }
 
 Animal.prototype.getDomElement = function() {
     return this.domElement;
 }
-
-//lol
-function color(){
-    return colors[Math.floor(Math.random()*colors.length)];
-}
-var colors = ["lime","peachpuff","tan","lightslategray","dimgray","deeppink","wheat","limegreen","silver","chartreuse","lightsalmon","darkslategray","fuchsia","lavender","darkcyan","lightcoral","dimgrey","midnightblue","lightslategrey","sienna","thistle","moccasin","darkblue","hotpink","white","greenyellow","darkseagreen","steelblue","black","magenta","honeydew","salmon","cornsilk","indianred","crimson","green","lightblue","lavenderblush","palegreen","teal","red","rebeccapurple","darkturquoise","mediumblue","goldenrod","grey","cadetblue","darkorange","lightpink","maroon","indigo","mediumspringgreen","blanchedalmond","papayawhip","peru","lawngreen","mediumaquamarine","darkgray","darkslategrey","powderblue","beige","antiquewhite","lightseagreen","orange","slateblue","lightsteelblue","azure","lightgray","khaki","orangered","lightskyblue","purple","saddlebrown","paleturquoise","olive","mediumturquoise","seashell","mintcream","mistyrose","firebrick","palevioletred","lightcyan","mediumpurple","oldlace","dodgerblue","seagreen","darkgreen","linen","darkorchid","pink","turquoise","lightgoldenrodyellow","plum","darkgrey","darkolivegreen","cyan","chocolate","darksalmon","brown","orchid","mediumorchid","navajowhite","blueviolet","ghostwhite","springgreen","slategray","yellowgreen","aqua","ivory","lightgreen","darkgoldenrod","mediumvioletred","slategrey","lightyellow","cornflowerblue","aliceblue","violet","darkred","olivedrab","royalblue","darkslateblue","lemonchiffon","tomato","forestgreen","snow","gray","mediumslateblue","aquamarine","burlywood","whitesmoke","darkkhaki","yellow","palegoldenrod","bisque","navy","deepskyblue","gainsboro","gold","coral","darkviolet","sandybrown","darkmagenta","skyblue","blue","mediumseagreen","rosybrown","lightgrey","floralwhite"];

@@ -9,9 +9,21 @@ var Game = function(){
 		'experience-background': 'img/home-bg.jpg'
 	};
 
+	this.animalCollective 	= new AnimalCollective();
+	this.bloodSplatter 		= new BloodSplatter();
+	this.speedBlur 			= null;
+	this.soundPlayer 		= null;
+
 };
 
 Game.prototype = Object.create(View.prototype);
+
+Game.prototype.bind = function() {
+	View.prototype.bind.apply(this);
+	this.animalCollective._onAnimalDeath.add(function(){ this.bloodSplatter.splash(20) }.bind(this) );
+	this.animalCollective._onAnimalHit.add(  function(){ this.soundPlayer.play('gunshot')}.bind(this) );
+	this.animalCollective._endOfGame.add( this.stopRequestAnimationFrames.bind(this) );
+}
 
 Game.prototype.animateIn = function() {
 	
@@ -43,14 +55,28 @@ Game.prototype.animateOut = function() {
 };
 
 Game.prototype.startGame = function() {
-	/*var animalCollection = new AnimalController(),
-			shootThemAll = new AnimalView(animalCollection);
 
-	shootThemAll.init();*/
 	console.log( "starting game" );
-	var anCo = new AnimalController();
-	anCo.init(animalsConfig, lanesConfig);
-	anCo.populateLanes();
-	anCo.draw();
+
+	this.speedBlur 			= new SpeedBlur();
+	this.soundPlayer 		= new SoundPlayer();
+
+	$('#game').click( function() { this.soundPlayer.play('gunshot'); }.bind(this) );
+
+	this.animalCollective.init(animalsConfig, lanesConfig);
+	this.animalCollective.populateLanes();
+	this.animalCollective.draw();
+
+	this.bloodSplatter.init();
+
+}
+
+Game.prototype.resize = function() {
+	this.animalCollective.onResize();
+	this.bloodSplatter.onResize();
+}
+
+Game.prototype.stopRequestAnimationFrames = function() {
+	this.bloodSplatter.stop();
 
 }

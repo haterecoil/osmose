@@ -61,6 +61,7 @@
 
     <script>
 
+
       var app = {};
 
       $(document).ready(function(){
@@ -74,6 +75,12 @@
       });
 
     </script>
+    <script>
 
+      $('body > svg > use').click(function(){ console.log('waa'); });
+
+      $('head').append('<style>use.source { display: none; }</style>')
+
+    </script>
   </body>
 </html>
