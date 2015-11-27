@@ -23,6 +23,9 @@ function App(){
 	// Set lang
 	this.lang = 'fr';
 
+	//set draw for external control and debug
+	window.draw = true;
+
 	// Init
 	this.init();
 
